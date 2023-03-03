@@ -1,0 +1,176 @@
+*{
+    box-sizing: border-box;
+    }
+    html{
+        font-size: 16px;
+    }
+    
+    body{
+        display: flex;
+        font-family: 'Roboto';
+        font-size: 1rem;
+        justify-content: center;
+    }
+    
+    
+    /*Se om det här är korrekt*/
+    
+    .text-center{
+       text-align: center;
+    }
+    
+    .jumbotron {
+        justify-content: center;
+        background-color: #DEDEDE;
+        padding: 1.5rem;
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .col{
+        margin-top: 0.5rem;
+    }
+    
+    input{
+        width: 100%;
+        margin-top: 0.3rem;
+        padding: 0.5rem;
+        font-size: 1.1rem;
+    }
+    
+    td {
+        text-align: center;
+        border: 0.1rem darkgrey solid;
+        height: 125px;
+        width: 125px;
+        font-size: 50px;   
+    }
+    form{
+        border: 0.1rem lightgray solid;
+        border-radius: 0.3rem;
+        padding: 1rem;
+        box-shadow:  5px 5px 10px gray;
+    }
+    #div-in-form{
+        display: flex;
+        flex-direction: column;
+        padding-top: 0.5rem;
+        
+        
+    }
+    .gameArea{
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    #div-with-a{
+        border: 1px  #1e90ff solid;
+        align-self:flex-end;
+        margin-top: 1.2rem;
+        padding: 0.3rem;
+        border-radius: 5px;
+        width: fit-content;
+        background-color: #1e90ff;
+    }
+    
+    
+    #newGame{
+        text-decoration: none;
+        padding: 0.4rem;
+        color: white;
+    }
+    
+    input[type="text" i]{
+        border: 1px gray solid;
+        border-radius: 0.3rem;
+    
+    }
+    
+    input[type="text" i]:focus{
+        outline-color:rgb(0, 191, 255);
+    }
+    
+    input[type="color" i] {
+        height: 2.5rem;
+        background-color: white;
+        border: 1px gray solid;
+        border-radius: 0.3rem;
+     
+    }
+    
+    table{
+        border-spacing: 0;
+    }
+    
+    aside img{
+        display: none;
+    }
+    
+    @media (min-width: 415px) {
+    /*Allt under 415px*/
+        html{
+            font-size: 18px;
+        }
+        aside img{
+            display: block;
+            width: 100%;
+        }
+        aside{
+            width: 30%;
+        }
+        main{
+            width: 50%;
+        }
+        td{/*Onödigt, är redan 125px från > 415px */
+            width: 125px;
+            height: 125px;
+        }
+        input{
+            font-size: 1rem;
+        }
+    }
+    
+    
+    @media (min-width: 1180px) {
+        /*Allt under 1180px*/
+        html{
+            font-size: 22px;
+        }
+        
+        aside{
+            width: 300px;
+        }
+    
+        main{
+            width: 70%;
+        }
+        #div-in-form{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .col{
+            width: 49%;
+        }
+    
+        td{
+            width: 200px;
+            height: 200px;
+        }
+    
+        #div-with-a:hover{
+            border: 1px #1e90ff solid;
+            background-color: white;
+        }
+        #div-with-a>a:hover{
+            color: #1e90ff   
+        }
+    
+        
+        #div-with-a{
+            align-self: flex-start;
+        }
+    }
