@@ -82,9 +82,48 @@ oGameData.initGlobalObject = function() {
  * Funktionen tar inte emot några värden.
  */
 oGameData.checkForGameOver = function() {
+    oGameData.DiagonalaVinster();
+    oGameData.VertikalaVinster();
+    //oGameData.DiagonalaVinster();
+    }
+
+    oGameData.DiagonalaVinster = function() {
+
+        let DiagonalaVinster = [
+            //Diagonala vinster
+            [0,4,8],
+            [2,4,6]
+        ];
+        console.log("Tjaaa!")
+    }
+
+    oGameData.VertikalaVinster = function() {
+
+        let VertikalaVinster = [
+            //Vertikala Vinster
+            [1,2,3],
+            [1,2,3],
+            [1,2,3]
+        ];
+
+        for(let i = 0;i<VertikalaVinster.length;i++){
+            let kontrol [x,y,z] = [i];
+            if(oGameData.gameField[x] === "X" && oGameData.gameField[y] === "X" && oGameData.gameField[z] === "X"){
+                return 1;
+            }
+            else if(oGameData.gameField[x] === "O" && oGameData.gameField[y] === "O" && oGameData.gameField[z] === "O"){
+                return 2;
+            }
+
+        }
+
+        console.log("Tjooo!!")
+    }
+
+
 
    
 
-}
+
 
 
