@@ -110,12 +110,12 @@ oGameData.checkForGameOver = function () {
         else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && oGameData.gameField[kontrolleraVinster[i][1]] === 'O' && oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
             return 2;
         }
-        //Om inte "X" eller "O" har vunnit och i har loopat igenom hela arrayen inte innehåller en tom plats kommer den returnera en 3:a för oavgjort.
+        //Om inte "X" eller "O" har vunnit och i har loopat igenom hela arrayen och inte innehåller en tom plats kommer den returnera en 3:a för oavgjort.
         else if (!oGameData.gameField.includes('') && i === kontrolleraVinster.length-1){
             return 3;
         }
     }
     
-    // Tidigare IF-sats uteslutet scenariot där ingen vinnare finns. 
+    // Tidigare IF-sats uteslutet scenariot där ingen vinnare finns och det fortfarande finns plats att spela på. 
     return 0;
 }
