@@ -32,11 +32,11 @@ let oGameData = {};
  * Funktionen tar inte emot några värden.
  * Funktionen returnerar inte något värde.
  */
-oGameData.initGlobalObject = function() {
+oGameData.initGlobalObject = function () {
 
     //Datastruktur för vilka platser som är lediga respektive har brickor
     oGameData.gameField = Array('', '', '', '', '', '', '', '', '');
-    
+
     /* Testdata för att testa rättningslösning */
     //oGameData.gameField = Array('X', 'X', 'X', '', '', '', '', '', '');
     //oGameData.gameField = Array('X', '', '', 'X', '', '', 'X', '', '');
@@ -81,48 +81,95 @@ oGameData.initGlobalObject = function() {
  * returnerar 3 om det är oavgjort.
  * Funktionen tar inte emot några värden.
  */
-oGameData.checkForGameOver = function() {
+oGameData.checkForGameOver = function () {
+    console.log(oGameData.gameField);
     oGameData.DiagonalaVinster();
     oGameData.VertikalaVinster();
-    //oGameData.DiagonalaVinster();
-    }
+    oGameData.HorisontalaVinster();
+}
 
-    oGameData.DiagonalaVinster = function() {
+oGameData.DiagonalaVinster = function () {
 
-        let DiagonalaVinster = [
-            //Diagonala vinster
-            [0,4,8],
-            [2,4,6]
-        ];
-        console.log("Tjaaa!")
-    }
+    let DiagonalaVinster = [
+        //Diagonala vinster
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
 
-    oGameData.VertikalaVinster = function() {
-
-        let VertikalaVinster = [
-            //Vertikala Vinster
-            [1,2,3],
-            [1,2,3],
-            [1,2,3]
-        ];
-
-        for(let i = 0;i<VertikalaVinster.length;i++){
-            let kontrol [x,y,z] = [i];
-            if(oGameData.gameField[x] === "X" && oGameData.gameField[y] === "X" && oGameData.gameField[z] === "X"){
-                return 1;
-            }
-            else if(oGameData.gameField[x] === "O" && oGameData.gameField[y] === "O" && oGameData.gameField[z] === "O"){
-                return 2;
-            }
-
+    for (let i = 0; i < DiagonalaVinster.length; i++) {
+        let x, y, z;
+        let kontroll = [x, y, z] = DiagonalaVinster[i];
+        if (oGameData.gameField[x] === 'X' && oGameData.gameField[y] === 'X' && oGameData.gameField[z] === 'X') {
+            console.log("Tjaaa!");
+            return 1;
+        }
+        else if (oGameData.gameField = [x] === 'O' && oGameData.gameField[y] === 'O' && oGameData.gameField[z] === 'O') {
+            return 2;
         }
 
-        console.log("Tjooo!!")
     }
 
+    return 0;
+
+}
+
+oGameData.VertikalaVinster = function () {
+
+    let VertikalaVinster = [
+        //Vertikala Vinster
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8]
+    ];
+
+    for (let i = 0; i < VertikalaVinster.length; i++) {
+        let x, y, z;
+        let kontroll = [x, y, z] = VertikalaVinster[i];
+
+        if (oGameData.gameField[x] === 'X' && oGameData.gameField[y] === 'X' && oGameData.gameField[z] === 'X') {
+            console.log("Tjooo!!");
+            return 1;
+        }
+        else if (oGameData.gameField = [x] === 'O' && oGameData.gameField[y] === 'O' && oGameData.gameField[z] === 'O') {
+            return 2;
+        }
+
+    }
+
+    return 0;
+
+}
+
+oGameData.HorisontalaVinster = function () {
+
+    let HorisontalaVinster = [
+        //Vertikala Vinster
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8]
+    ];
+
+    console.log(oGameData.gameField);
+    for (let i = 0; i < HorisontalaVinster.length; i++) {
+        console.log(HorisontalaVinster[i][0]);
+        console.log(HorisontalaVinster[i][1]);
+        console.log(HorisontalaVinster[i][2]);
+        if (oGameData.gameField[HorisontalaVinster[i][0]] === 'X' && oGameData.gameField[HorisontalaVinster[i][1]] === 'X' && oGameData.gameField[HorisontalaVinster[i][2]] === 'X') {
+
+            return 1;
+        }
+        else if (oGameData.gameField[HorisontalaVinster[i][0]] === 'O' && oGameData.gameField[HorisontalaVinster[i][1]] === 'O' && oGameData.gameField[HorisontalaVinster[i][2]] === 'O') {
+            return 2;
+        }
+
+    }
+    console.log("Tjooo!!");
+    return 0;
+
+}
 
 
-   
+
 
 
 
