@@ -83,7 +83,6 @@ oGameData.initGlobalObject = function () {
  */
 oGameData.checkForGameOver = function () {
     
-    
     //Kontrollerar vilka rader som kan resultera i vinster
     //Lägger in raderna i en 2d array
     let kontrolleraVinster = [
@@ -107,6 +106,7 @@ oGameData.checkForGameOver = function () {
         if (oGameData.gameField[kontrolleraVinster[i][0]] === 'X' && oGameData.gameField[kontrolleraVinster[i][1]] === 'X' && oGameData.gameField[kontrolleraVinster[i][2]] === 'X') {
             return 1;
         }
+        //Gör samma sak som if-satsen ovan med skillnaden att man försöker matcha med stringvärdet "O" istället.
         else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && oGameData.gameField[kontrolleraVinster[i][1]] === 'O' && oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
             return 2;
         }
