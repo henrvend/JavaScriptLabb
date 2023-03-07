@@ -82,95 +82,40 @@ oGameData.initGlobalObject = function () {
  * Funktionen tar inte emot några värden.
  */
 oGameData.checkForGameOver = function () {
-    console.log(oGameData.gameField);
-    oGameData.DiagonalaVinster();
-    oGameData.VertikalaVinster();
-    oGameData.HorisontalaVinster();
-}
-
-oGameData.DiagonalaVinster = function () {
-
-    let DiagonalaVinster = [
-        //Diagonala vinster
+    
+    
+    //Kontrollerar vilka rader som kan resultera i vinster
+    //Lägger in raderna i en 2d array
+    let kontrolleraVinster = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
         [0, 4, 8],
         [2, 4, 6]
     ];
 
-    for (let i = 0; i < DiagonalaVinster.length; i++) {
-        let x, y, z;
-        let kontroll = [x, y, z] = DiagonalaVinster[i];
-        if (oGameData.gameField[x] === 'X' && oGameData.gameField[y] === 'X' && oGameData.gameField[z] === 'X') {
-            console.log("Tjaaa!");
+    //Hittat inspiration från geeksforgeeks för att loopa igenom 2d array "https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/"
+    //Loopar igenom att Array med möjliga vinster.
+    for (let i = 0; i < kontrolleraVinster.length; i++) {
+        
+
+        //Kontrollerar så att arrayplatser i 2D array har strängvärdet "X" på platserna 0,1,2 för värdet [i].
+        //Kollar både för "X" och "O"
+        if (oGameData.gameField[kontrolleraVinster[i][0]] === 'X' && oGameData.gameField[kontrolleraVinster[i][1]] === 'X' && oGameData.gameField[kontrolleraVinster[i][2]] === 'X') {
             return 1;
         }
-        else if (oGameData.gameField = [x] === 'O' && oGameData.gameField[y] === 'O' && oGameData.gameField[z] === 'O') {
+        else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && oGameData.gameField[kontrolleraVinster[i][1]] === 'O' && oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
             return 2;
         }
-
+        //Om inte "X" eller "O" har vunnit och i har loopat igenom hela arrayen inte innehåller en tom plats kommer den returnera en 3:a för oavgjort.
+        else if (!oGameData.gameField.includes('') && i === kontrolleraVinster.length-1){
+            return 3;
+        }
     }
-
+    
+    // Tidigare IF-sats uteslutet scenariot där ingen vinnare finns. 
     return 0;
-
 }
-
-oGameData.VertikalaVinster = function () {
-
-    let VertikalaVinster = [
-        //Vertikala Vinster
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8]
-    ];
-
-    for (let i = 0; i < VertikalaVinster.length; i++) {
-        let x, y, z;
-        let kontroll = [x, y, z] = VertikalaVinster[i];
-
-        if (oGameData.gameField[x] === 'X' && oGameData.gameField[y] === 'X' && oGameData.gameField[z] === 'X') {
-            console.log("Tjooo!!");
-            return 1;
-        }
-        else if (oGameData.gameField = [x] === 'O' && oGameData.gameField[y] === 'O' && oGameData.gameField[z] === 'O') {
-            return 2;
-        }
-
-    }
-
-    return 0;
-
-}
-
-oGameData.HorisontalaVinster = function () {
-
-    let HorisontalaVinster = [
-        //Vertikala Vinster
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8]
-    ];
-
-    console.log(oGameData.gameField);
-    for (let i = 0; i < HorisontalaVinster.length; i++) {
-        console.log(HorisontalaVinster[i][0]);
-        console.log(HorisontalaVinster[i][1]);
-        console.log(HorisontalaVinster[i][2]);
-        if (oGameData.gameField[HorisontalaVinster[i][0]] === 'X' && oGameData.gameField[HorisontalaVinster[i][1]] === 'X' && oGameData.gameField[HorisontalaVinster[i][2]] === 'X') {
-
-            return 1;
-        }
-        else if (oGameData.gameField[HorisontalaVinster[i][0]] === 'O' && oGameData.gameField[HorisontalaVinster[i][1]] === 'O' && oGameData.gameField[HorisontalaVinster[i][2]] === 'O') {
-            return 2;
-        }
-
-    }
-    console.log("Tjooo!!");
-    return 0;
-
-}
-
-
-
-
-
-
-
