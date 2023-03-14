@@ -36,15 +36,12 @@ window.addEventListener('load', function() {
     
     //Anropar metoden. 
     oGameData.initGlobalObject();
-
-    let element = document.getElementById("game-area");
-    element.classList.add("d-none");
-    
-    let element1 = document.getElementById("newGame");
-    element1.addEventListener("click", validateForm);
-
-    const newGameLink = document.getElementById("newGame");
-    newGameLink.setAttribute("onclick", "validateForm()");
+    //Hämtar element från ID i index.html och adderar klassen "d-none", klassen har lagts in i css för att applicera display:none.
+    let gameArea = document.getElementById("game-area");
+    gameArea.classList.add("d-none");
+    //Hämtar element från ID i index.html och adderar en lysnare som vid klick kallar på metoden validateForm. 
+    let newGame = document.getElementById("newGame");
+    newGame.addEventListener("click", validateForm);
 });
 
 oGameData.initGlobalObject = function () {
@@ -88,80 +85,89 @@ oGameData.initGlobalObject = function () {
 
 }
 
-
+//Metod för att validera inmatningar till formuläret.
 function validateForm()  {
-    let black = '#000000';
-    let white = '#ffffff';
+    //Konstanter som används för att kontrollera så att de valda färgerna inte är svarta eller vita.
+    const black = '#000000';
+    const white = '#ffffff';
 
 
     try {
+        //Hämtar alla inputs med typen text och lägger dem i textRefs.
         let textRefs = document.querySelectorAll('input[type=text]');
+        //Hämtar alla inputs med typen color och lägger dem i colorRefs.
         let colorRefs = document.querySelectorAll('input[type=color]');
-
+        //Kontrollerar ifall någon av namn inmatningarna är kortare än 5, om så är fallet så kastas värde till catch.
         if(textRefs[0].value.length<5 || textRefs[1].value.length<5){throw{elementRef : textRefs[0]}}
-
+        //Kontrollerar ifall någon av namn inmatningarna har samma värde, om så är fallet så kastas värde till catch.
         if(textRefs[0].value == textRefs[1].value){throw {elementRef : textRefs[1]}}
-        
+        //Kontrollerar ifall någon färg inmatningarna har samma värde, om så är fallet så kastas värde till catch.
         if(colorRefs[0].value == colorRefs[1].value){throw {elementRef : colorRefs[0]}}
-
+        //Kontrollerar ifall någon färg inmatningarna har färgen svart, om så är fallet så kastas värde till catch.
         if(colorRefs[0].value == black || colorRefs[1].value == black){throw { elementRef : colorRefs[1]}}
-
+        //Kontrollerar ifall någon färg inmatningarna har färgen vit, om så är fallet så kastas värde till catch.
         if(colorRefs[0].value == white || colorRefs[1].value == white){throw { elementRef : colorRefs[0]}}
-        
+        //Kallar på metod ifall inget har kastats till catch i if-satserna.
         initiateGame();
     }
         
     catch (error) {
+        //Ändrar text innehållet för #errorMsg om catchen fångar något ifrån throw i if-satserna ovan.
         document.querySelector('#errorMsg').textContent = 'Ej korrekt ifyllt formulär';
     }
     
 }
 
 function initiateGame(){
-    
+    //Definerar let för vilken spelare som ska börja samt dess spelnamn.
     let playerChar, playerName;
-
-    let element = document.querySelector('form');
-    element.classList.add("d-none");    //Gömmer elementet
+    //Hämtar form-element ifrån index.html för att klassa i senare skede ska kunna läggas till. Endast ett formulär finns så vi körde på denna metoden.
+    let form = document.querySelector('form');
+    //Lägger till klassen d-none för elementet form.
+    form.classList.add("d-none");//Gömmer elementet
     
-    //element.classList.remove("gameArea");
-    
-    let element1 = document.getElementById("game-area");
-    element1.classList.remove("d-none")  //Tar bort klassen från game-area
-
+    //Definerar element med id "game-area" för att kunna ta bort klassen "d-none" i senare skede.
+    let gameArea = document.getElementById("game-area");
+    //Tar bort klassen från game-area
+    gameArea.classList.remove("d-none")
+    //Ändrar text innehållet för #errorMsg till null.
     document.querySelector('#errorMsg').textContent = "";
-
+    //Hämtar alla inputs med typen text och lägger dem i textRefs.
     let textRefs = document.querySelectorAll('input[type=text]');
+    //Hämtar alla inputs med typen color och lägger dem i colorRefs.
     let colorRefs = document.querySelectorAll('input[type=color]');
-
+    //Tilldelar spelar attribut värden från inmatningar som sparats i textRefs och ColorRefs.
     oGameData.nickNamePlayerOne=textRefs[0].value;
     oGameData.nickNamePlayerTwo=textRefs[1].value;
     oGameData.colorPlayerOne=colorRefs[0].value;
     oGameData.colorPlayerTwo=colorRefs[1].value;
     
-
-
+    //Definerar alla element som är td från index.html.
     let Td = document.querySelectorAll('td');
 
-    for (let i=0; i < Td.length; i++) {
-
+    for (let i = 0; i < Td.length; i++) {
+        //Sätter allt text innehåll för td till null samt ändrar bakgrundsfärgen till vit.
         Td[i].textContent = ""; 
         Td[i].style.backgroundColor = 'white';
 
     }
-
-    if(Math.random(1)<0.5){
+    //Kollar ifall randomiserade värdet som genereras är mindre än 0,5.
+    if(Math.random(1) < 0.5){
+        //Tilldelar playerChar, playername och currentPlayer värden tillhörande playerOne.
         playerChar = oGameData.playerOne;
         playerName = oGameData.nickNamePlayerOne;
         oGameData.currentPlayer = oGameData. playerOne;
     }
     else{
+        //Vid händelse att värdet som genereras inte är mindre än 0,5 så tilldelas samma som ovan playerTwo istället.
         playerChar = oGameData. playerTwo;
         playerName = oGameData.nickNamePlayerTwo;
         oGameData.currentPlayer = oGameData. playerTwo;
     }
-    let elementH1 = document.querySelector('.jumbotron h1');
-    elementH1.textContent = playerName;
+    //Definerar alla H1:or i klassen jumbotron i index.html.
+    let jumbotronH1 = document.querySelector('.jumbotron h1');
+    //Tilldelar H1:an namnet som playerName fått.
+    jumbotronH1.textContent = playerName;
 
 }
 
