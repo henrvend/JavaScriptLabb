@@ -98,22 +98,22 @@ function validateForm()  {
         //Hämtar alla inputs med typen color och lägger dem i colorRefs.
         let colorRefs = document.querySelectorAll('input[type=color]');
         //Kontrollerar ifall någon av namn inmatningarna är kortare än 5, om så är fallet så kastas värde till catch.
-        if(textRefs[0].value.length<5 || textRefs[1].value.length<5){throw{elementRef : textRefs[0]}}
+        if(textRefs[0].value.length<5 || textRefs[1].value.length<5){throw' "nickname" måste vara längre än 5 bokstäver.'}
         //Kontrollerar ifall någon av namn inmatningarna har samma värde, om så är fallet så kastas värde till catch.
-        if(textRefs[0].value == textRefs[1].value){throw {elementRef : textRefs[1]}}
+        if(textRefs[0].value == textRefs[1].value){throw ' "nickname" får ej vara likadana.'}
         //Kontrollerar ifall någon färg inmatningarna har samma värde, om så är fallet så kastas värde till catch.
-        if(colorRefs[0].value == colorRefs[1].value){throw {elementRef : colorRefs[0]}}
+        if(colorRefs[0].value == colorRefs[1].value){throw ' spelare får inte ha likadan färg.'}
         //Kontrollerar ifall någon färg inmatningarna har färgen svart, om så är fallet så kastas värde till catch.
-        if(colorRefs[0].value == black || colorRefs[1].value == black){throw { elementRef : colorRefs[1]}}
+        if(colorRefs[0].value == black || colorRefs[1].value == black){throw ' spelarfärg får ej vara svart.'}
         //Kontrollerar ifall någon färg inmatningarna har färgen vit, om så är fallet så kastas värde till catch.
-        if(colorRefs[0].value == white || colorRefs[1].value == white){throw { elementRef : colorRefs[0]}}
+        if(colorRefs[0].value == white || colorRefs[1].value == white){throw ' spelarfärg får ej vara vit.'}
         //Kallar på metod ifall inget har kastats till catch i if-satserna.
         initiateGame();
     }
         
     catch (error) {
         //Ändrar text innehållet för #errorMsg om catchen fångar något ifrån throw i if-satserna ovan.
-        document.querySelector('#errorMsg').textContent = 'Ej korrekt ifyllt formulär';
+        document.querySelector('#errorMsg').textContent = 'Ej korrekt ifyllt formulär,' +error;
     }
     
 }
