@@ -40,9 +40,56 @@ window.addEventListener('load', function() {
     //Hämtar element från ID i index.html och adderar en lysnare som vid klick kallar på metoden validateForm. 
     let newGame = document.getElementById("newGame");
     newGame.addEventListener("click", validateForm);
-
-    
+    timer();
 });
+
+function timer(){
+
+    let parent = document.querySelector("#div-in-form");
+    let div = document.createElement("div");
+    let placement = document.querySelector("#div-with-a");
+    let check = document.createElement("input");
+    let label = document.createElement("label");
+    let text = document.createTextNode("Vill du begränsa tiden till 5 sek per drag?");
+    div.setAttribute("id","div-with-check");
+    check.type = "checkbox";
+    check.setAttribute("id", "test");
+    label.setAttribute("for", "test");
+    label.appendChild(text);
+    div.classList.add("fit-content" ,"margin-top");
+    label.classList.add("fit-content");
+    check.classList.add("fit-content");
+    parent.insertBefore(div, placement);
+    div.appendChild(check);
+    div.appendChild(label);
+    
+    check.addEventListener("change", function() {
+        if (this.checked) {
+            oGameData.timerEnabled = true;
+            //timeCount(true); Adams försök.
+        } else {
+            oGameData.timerEnabled = false;
+        }
+    });
+}
+
+/*function timeCount(status) {
+    while(status == true) {
+        let timeInSeconds = 5;
+        let countDown = setInterval(function() {
+            timeInSeconds--;
+
+            if (timeInSeconds === 0) {
+                console.log("5 sekunder har passerat!")
+              clearInterval(timer);
+            }
+            else {
+
+            }
+        },1000);
+    }
+}*/
+
 
 
 function executeMove(event) {
@@ -94,7 +141,9 @@ function executeMove(event) {
             else {
                 jumbotronH1.textContent = "Vinnare är " +oGameData.nickNamePlayerTwo+"! Spela igen?";
             }
-            
+
+            //timeCount(false); Adams försök.
+
             //Tar bort lyssnare för tabellen.
             table.removeEventListener("click", executeMove);
             
@@ -148,7 +197,7 @@ oGameData.initGlobalObject = function () {
 
     //Timerid om användaren har klickat för checkboxen. 
     oGameData.timerId = null;
-
+    
 }
 
 //Metod för att validera inmatningar till formuläret.
@@ -191,6 +240,12 @@ function validateForm()  {
         //om så är fallet så kastas värde till catch.
         if(colorRefs[0].value == white || colorRefs[1].value == white){
             throw ' spelarfärg får ej vara vit.'
+        }
+        if(oGameData.timerEnabled){
+            console.log("timer ska startas");
+        }
+        else{
+            console.log("Ingen timer!!!!");
         }
         //Kallar på metod ifall inget har kastats till catch i if-satserna.
         initiateGame();
@@ -264,6 +319,7 @@ function initiateGame(){
     //Lägger till en lyssnare på Tabellen som kallar på executeMove
     let table = document.querySelector("table");
     table.addEventListener("click", executeMove);
+
 
 }
 
