@@ -18,8 +18,6 @@ console.log( oGameData.checkDiagonalRightToLeft() );
 console.log( oGameData.checkForDraw() );
 */
 
-
-
 /**
  * Globalt objekt som innehåller de attribut som ni skall använda.
  * Initieras genom anrop till funktionern initGlobalObject().
@@ -81,7 +79,7 @@ function executeMove(event) {
                 oGameData.currentPlayer=oGameData.playerOne;
             }
         }
-        
+
         //Tilldelar variabeln 0, 1, 2, eller 3 beroende på spelets status.
         let result = oGameData.checkForGameOver();
         
