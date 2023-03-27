@@ -67,7 +67,8 @@ function timer(){
     
     check.addEventListener("change", function() {
         console.log("Changed value");
-        if (check.checked) {
+        console.log(check.checked);
+        if (this.checked) {
             oGameData.timerEnabled = true;
         } else {
             oGameData.timerEnabled = false;
@@ -77,11 +78,9 @@ function timer(){
 
 
 function timeCount(timeInSeconds){
-       // let timeInSeconds = 5;
         timeInSeconds--;
         console.log(timeInSeconds);
         if(timeInSeconds===0){
-            console.log("tid har gått");
                 timeCount(5);
                 if(oGameData.currentPlayer==oGameData.playerOne){
                     oGameData.currentPlayer=oGameData.playerTwo;
@@ -94,11 +93,9 @@ function timeCount(timeInSeconds){
             oGameData.timerId = setTimeout(function() {
                 timeCount(timeInSeconds);
             }, 1000);
-            //setTimeout(countDown, 1000);
         }
 
         if(oGameData.timerEnabled == false){
-            console.log("Stopp timer");
             clearInterval(oGameData.timerId);
         }
     }
@@ -153,7 +150,6 @@ function executeMove(event) {
                 jumbotronH1.textContent = "Vinnare är " +oGameData.nickNamePlayerTwo+"("+oGameData.playerTwo+") ! Spela igen?";
             }
             
-            oGameData.timerEnabled=false;  
             
 
             //Tar bort lyssnare för tabellen.
@@ -255,7 +251,9 @@ function validateForm()  {
             throw ' spelarfärg får ej vara vit.'
         }
 
-      
+        if(document.getElementById('checkBox').checked){
+            oGameData.timerEnabled=true;
+        }
 
         if(oGameData.timerEnabled){
             console.log("timer ska startas");
