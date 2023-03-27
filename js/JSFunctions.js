@@ -45,10 +45,12 @@ window.addEventListener('load', function() {
 });
 
 function timer(){
-
     let parent = document.querySelector("#div-in-form");
+    //Hämtar elementet från HTML-filen med ID namnet div-in-form för att sedan tilldela till variablen parent.
     let div = document.createElement("div");
+    //Skapar ett ny div i HTML-filen som tilldelas variabeln div.
     let placement = document.querySelector("#div-with-a");
+    //Hämtar elementet från HTML-filen med ID namnet div-with-a för att sedan tilldela till variablen parent.
     let check = document.createElement("input");
     let label = document.createElement("label");
     let text = document.createTextNode("Vill du begränsa tiden till 5 sek per drag?");
@@ -66,8 +68,6 @@ function timer(){
     
     
     check.addEventListener("change", function() {
-        //console.log("Changed value");
-        //console.log(check.checked);
         if (this.checked) {
             oGameData.timerEnabled = true;
         } else {
@@ -78,8 +78,8 @@ function timer(){
 
 
 function timeCount(timeInSeconds){
+    //Funktion för timer samt justering av aktuell spelare och jumbotron
         timeInSeconds--;
-        //console.log(timeInSeconds);
         if(timeInSeconds===0){
                 timeCount(5);
                 if(oGameData.currentPlayer==oGameData.playerOne){
@@ -151,8 +151,6 @@ function executeMove(event) {
                 jumbotronH1.textContent = "Vinnare är " +oGameData.nickNamePlayerTwo+"("+oGameData.playerTwo+") ! Spela igen?";
             }
             
-            
-
             //Tar bort lyssnare för tabellen.
             table.removeEventListener("click", executeMove);
             
