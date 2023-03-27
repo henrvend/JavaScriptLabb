@@ -41,6 +41,7 @@ window.addEventListener('load', function() {
     let newGame = document.getElementById("newGame");
     newGame.addEventListener("click", validateForm);
     timer();
+   
 });
 
 function timer(){
@@ -53,8 +54,8 @@ function timer(){
     let text = document.createTextNode("Vill du begränsa tiden till 5 sek per drag?");
     div.setAttribute("id","div-with-check");
     check.type = "checkbox";
-    check.setAttribute("id", "test");
-    label.setAttribute("for", "test");
+    check.setAttribute("id", "checkBox");
+    label.setAttribute("for", "checkBox");
     label.appendChild(text);
     div.classList.add("fit-content" ,"margin-top");
     label.classList.add("fit-content");
@@ -63,34 +64,44 @@ function timer(){
     div.appendChild(check);
     div.appendChild(label);
     
+    
     check.addEventListener("change", function() {
-        if (this.checked) {
+        console.log("Changed value");
+        if (check.checked) {
             oGameData.timerEnabled = true;
-            //timeCount(true); Adams försök.
         } else {
             oGameData.timerEnabled = false;
         }
     });
 }
 
-/*function timeCount(status) {
-    while(status == true) {
-        let timeInSeconds = 5;
-        let countDown = setInterval(function() {
-            timeInSeconds--;
 
-            if (timeInSeconds === 0) {
-                console.log("5 sekunder har passerat!")
-              clearInterval(timer);
-            }
-            else {
+function timeCount(timeInSeconds){
+       // let timeInSeconds = 5;
+        timeInSeconds--;
+        console.log(timeInSeconds);
+        if(timeInSeconds===0){
+            console.log("tid har gått");
+                timeCount(5);
+                if(oGameData.currentPlayer==oGameData.playerOne){
+                    oGameData.currentPlayer=oGameData.playerTwo;
+                    document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerTwo + "("+oGameData.playerTwo +")" ;  
+                }else{
+                    oGameData.currentPlayer=oGameData.playerOne;
+                    document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerOne + "("+oGameData.playerOne +")";
+                }
+        }else{
+            oGameData.timerId = setTimeout(function() {
+                timeCount(timeInSeconds);
+            }, 1000);
+            //setTimeout(countDown, 1000);
+        }
 
-            }
-        },1000);
+        if(oGameData.timerEnabled == false){
+            console.log("Stopp timer");
+            clearInterval(oGameData.timerId);
+        }
     }
-}*/
-
-
 
 function executeMove(event) {
 
@@ -111,7 +122,7 @@ function executeMove(event) {
             
             //Om nuvarande spelare är "X" går den in och sätter alla värden efter det.
             if(oGameData.currentPlayer==oGameData.playerOne) {
-                jumbotronH1.textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerTwo + "("+oGameData.playerTwo +")" ;;
+                jumbotronH1.textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerTwo + "("+oGameData.playerTwo +")" ;
                 event.target.style.backgroundColor = oGameData.colorPlayerOne;
                 event.target.textContent = oGameData.playerOne;
                 oGameData.gameField[et] = "X";
@@ -136,13 +147,14 @@ function executeMove(event) {
                 jumbotronH1.textContent = "Oavgjort";
             }
             else if(result == 1) {
-                jumbotronH1.textContent ="Vinnare är "+oGameData.nickNamePlayerOne+"! Spela igen?";
+                jumbotronH1.textContent ="Vinnare är "+oGameData.nickNamePlayerOne+"("+oGameData.playerOne+") ! Spela igen?";
             }
             else {
-                jumbotronH1.textContent = "Vinnare är " +oGameData.nickNamePlayerTwo+"! Spela igen?";
+                jumbotronH1.textContent = "Vinnare är " +oGameData.nickNamePlayerTwo+"("+oGameData.playerTwo+") ! Spela igen?";
             }
-
-            //timeCount(false); Adams försök.
+            
+            oGameData.timerEnabled=false;  
+            
 
             //Tar bort lyssnare för tabellen.
             table.removeEventListener("click", executeMove);
@@ -198,6 +210,7 @@ oGameData.initGlobalObject = function () {
     //Timerid om användaren har klickat för checkboxen. 
     oGameData.timerId = null;
     
+    
 }
 
 //Metod för att validera inmatningar till formuläret.
@@ -241,8 +254,12 @@ function validateForm()  {
         if(colorRefs[0].value == white || colorRefs[1].value == white){
             throw ' spelarfärg får ej vara vit.'
         }
+
+      
+
         if(oGameData.timerEnabled){
             console.log("timer ska startas");
+            timeCount(5);
         }
         else{
             console.log("Ingen timer!!!!");
@@ -303,13 +320,13 @@ function initiateGame(){
         //Tilldelar playerChar, playername och currentPlayer värden tillhörande playerOne.
         playerChar = oGameData.playerOne;
         playerName = oGameData.nickNamePlayerOne;
-        oGameData.currentPlayer = oGameData. playerOne;
+        oGameData.currentPlayer = oGameData.playerOne;
     }
     else{
         //Vid händelse att värdet som genereras inte är mindre än 0,5 så tilldelas samma som ovan playerTwo istället.
         playerChar = oGameData. playerTwo;
         playerName = oGameData.nickNamePlayerTwo;
-        oGameData.currentPlayer = oGameData. playerTwo;
+        oGameData.currentPlayer = oGameData.playerTwo;
     }
     //Definerar alla H1:or i klassen jumbotron i index.html.
     let jumbotronH1 = document.querySelector('.jumbotron h1');
@@ -319,10 +336,7 @@ function initiateGame(){
     //Lägger till en lyssnare på Tabellen som kallar på executeMove
     let table = document.querySelector("table");
     table.addEventListener("click", executeMove);
-
-
 }
-
 
 /**
  * Kontrollerar för tre i rad.
@@ -363,6 +377,8 @@ oGameData.checkForGameOver = function () {
             return 3;
         }
     }
+    clearInterval(oGameData.timerId);
+    timeCount(5);
     // Tidigare IF-sats uteslutet scenariot där ingen vinnare finns och det fortfarande finns plats att spela på. 
     return 0;
 }
