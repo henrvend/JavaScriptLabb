@@ -31,7 +31,6 @@ let oGameData = {};
  */
 
 window.addEventListener('load', function() {
-    
     //Anropar metoden. 
     oGameData.initGlobalObject();
     //Hämtar element från ID i index.html och adderar klassen "d-none", klassen har lagts in i css för att applicera display:none.
@@ -41,10 +40,9 @@ window.addEventListener('load', function() {
     let newGame = document.getElementById("newGame");
     newGame.addEventListener("click", validateForm);
     timer();
-   
 });
 
-function timer(){
+function timer() {
     let parent = document.querySelector("#div-in-form");
     //Hämtar elementet från HTML-filen med ID namnet div-in-form för att sedan tilldela till variablen parent.
     let div = document.createElement("div");
@@ -70,14 +68,14 @@ function timer(){
     check.addEventListener("change", function() {
         if (this.checked) {
             oGameData.timerEnabled = true;
-        } else {
+        }
+        else {
             oGameData.timerEnabled = false;
         }
     });
 }
 
-
-function timeCount(timeInSeconds){
+function timeCount(timeInSeconds) {
     //Funktion för timer samt justering av aktuell spelare och jumbotron
         timeInSeconds--;
         if(timeInSeconds===0){
@@ -89,7 +87,8 @@ function timeCount(timeInSeconds){
                     oGameData.currentPlayer=oGameData.playerOne;
                     document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerOne + "("+oGameData.playerOne +")";
                 }
-        }else{
+        }
+        else {
             oGameData.timerId = setTimeout(function() {
                 timeCount(timeInSeconds);
             }, 1000);
@@ -111,12 +110,12 @@ function executeMove(event) {
     let gameArea = document.querySelector("#game-area")
     
     //Kontrollerar ifall elemetetet är en TD.
-    if(et.tagName === "TD"){
+    if(et.tagName === "TD") {
         //Skriver över TD med värdet för data-ID för att möjliggöra väl av TD i senare skede.
         et = et.getAttribute("data-id");
         
         //Om fältet i gamefield är tom går den in i if-satsen
-        if(oGameData.gameField[et]===""){
+        if(oGameData.gameField[et]==="") {
             
             //Om nuvarande spelare är "X" går den in och sätter alla värden efter det.
             if(oGameData.currentPlayer==oGameData.playerOne) {
@@ -141,7 +140,7 @@ function executeMove(event) {
         
         //Kollar ifall result skiljer sig med 0, vilket innebär att det är oavgjort eller att någon av spelarna vunnit.
         if(result != 0) {
-            if(result == 3){
+            if(result == 3) {
                 jumbotronH1.textContent = "Oavgjort";
             }
             else if(result == 1) {
@@ -208,7 +207,7 @@ oGameData.initGlobalObject = function () {
 }
 
 //Metod för att validera inmatningar till formuläret.
-function validateForm()  {
+function validateForm() {
     //Konstanter som används för att kontrollera så att de valda färgerna inte är svarta eller vita.
     const black = '#000000';
     const white = '#ffffff';
@@ -221,43 +220,43 @@ function validateForm()  {
 
         //Kontrollerar ifall någon av namn inmatningarna är kortare än 5,
         //om så är fallet så kastas värde till catch.
-        if(textRefs[0].value.length<5 || textRefs[1].value.length<5){
+        if(textRefs[0].value.length<5 || textRefs[1].value.length<5) {
             throw' "nickname" måste vara längre än 5 bokstäver.'
         }
 
         //Kontrollerar ifall någon av namn inmatningarna har samma värde,
         //om så är fallet så kastas värde till catch.
-        if(textRefs[0].value == textRefs[1].value){
+        if(textRefs[0].value == textRefs[1].value) {
             throw ' "nickname" får ej vara likadana.'
         }
         
         //Kontrollerar ifall någon färg inmatningarna har samma värde,
         //om så är fallet så kastas värde till catch.
-        if(colorRefs[0].value == colorRefs[1].value){
+        if(colorRefs[0].value == colorRefs[1].value) {
             throw ' spelare får inte ha likadan färg.'
         }
 
         //Kontrollerar ifall någon färg inmatningarna har färgen svart,
         //om så är fallet så kastas värde till catch.
-        if(colorRefs[0].value == black || colorRefs[1].value == black){
+        if(colorRefs[0].value == black || colorRefs[1].value == black) {
             throw ' spelarfärg får ej vara svart.'
         }
 
         //Kontrollerar ifall någon färg inmatningarna har färgen vit,
         //om så är fallet så kastas värde till catch.
-        if(colorRefs[0].value == white || colorRefs[1].value == white){
+        if(colorRefs[0].value == white || colorRefs[1].value == white) {
             throw ' spelarfärg får ej vara vit.'
         }
 
-        if(document.getElementById('checkBox').checked){
+        if(document.getElementById('checkBox').checked) {
             oGameData.timerEnabled=true;
         }
 
-        if(oGameData.timerEnabled){
+        if(oGameData.timerEnabled) {
             //console.log("timer ska startas");
             timeCount(5);
         }
-        else{
+        else {
             //console.log("Ingen timer!!!!");
         }
         //Kallar på metod ifall inget har kastats till catch i if-satserna.
@@ -268,7 +267,6 @@ function validateForm()  {
         //Ändrar text innehållet för #errorMsg om catchen fångar något ifrån throw i if-satserna ovan.
         document.querySelector('#errorMsg').textContent = 'Ej korrekt ifyllt formulär,' +error;
     }
-    
 }
 
 function initiateGame(){
@@ -361,23 +359,22 @@ oGameData.checkForGameOver = function () {
         
         //Kontrollerar så att arrayplatser i 2D array har strängvärdet "X" på platserna 0,1,2 för värdet [i].
         //Kollar både för "X" och "O"
-        if (oGameData.gameField[kontrolleraVinster[i][0]] === 'X' && oGameData.gameField[kontrolleraVinster[i][1]] === 'X' && oGameData.gameField[kontrolleraVinster[i][2]] === 'X') {
+        if (oGameData.gameField[kontrolleraVinster[i][0]] === 'X' && oGameData.gameField[kontrolleraVinster[i][1]] === 'X' &&
+         oGameData.gameField[kontrolleraVinster[i][2]] === 'X') {
             return 1;
         }
         //Gör samma sak som if-satsen ovan med skillnaden att man försöker matcha med stringvärdet "O" istället.
-        else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && oGameData.gameField[kontrolleraVinster[i][1]] === 'O' && oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
+        else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && oGameData.gameField[kontrolleraVinster[i][1]] === 'O' &&
+         oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
             return 2;
         }
         //Om inte "X" eller "O" har vunnit och i har loopat igenom hela arrayen och inte innehåller en tom plats kommer den returnera en 3:a för oavgjort.
-        else if (!oGameData.gameField.includes('') && i === kontrolleraVinster.length-1){
+        else if (!oGameData.gameField.includes('') && i === kontrolleraVinster.length-1) {
             return 3;
         }
     }
     clearInterval(oGameData.timerId);
-    //oGameData.timerId = null;
     timeCount(5);
-    //Adam testar att kommentera bort denna i syfte. Hjälpte inte. 
 
-    // Tidigare IF-sats uteslutet scenariot där ingen vinnare finns och det fortfarande finns plats att spela på. 
     return 0;
 }
