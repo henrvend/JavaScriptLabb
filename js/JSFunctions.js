@@ -66,8 +66,8 @@ function timer(){
     
     
     check.addEventListener("change", function() {
-        console.log("Changed value");
-        console.log(check.checked);
+        //console.log("Changed value");
+        //console.log(check.checked);
         if (this.checked) {
             oGameData.timerEnabled = true;
         } else {
@@ -79,7 +79,7 @@ function timer(){
 
 function timeCount(timeInSeconds){
         timeInSeconds--;
-        console.log(timeInSeconds);
+        //console.log(timeInSeconds);
         if(timeInSeconds===0){
                 timeCount(5);
                 if(oGameData.currentPlayer==oGameData.playerOne){
@@ -97,6 +97,7 @@ function timeCount(timeInSeconds){
 
         if(oGameData.timerEnabled == false){
             clearInterval(oGameData.timerId);
+            oGameData.timerId = null;
         }
     }
 
@@ -206,7 +207,6 @@ oGameData.initGlobalObject = function () {
     //Timerid om användaren har klickat för checkboxen. 
     oGameData.timerId = null;
     
-    
 }
 
 //Metod för att validera inmatningar till formuläret.
@@ -256,11 +256,11 @@ function validateForm()  {
         }
 
         if(oGameData.timerEnabled){
-            console.log("timer ska startas");
+            //console.log("timer ska startas");
             timeCount(5);
         }
         else{
-            console.log("Ingen timer!!!!");
+            //console.log("Ingen timer!!!!");
         }
         //Kallar på metod ifall inget har kastats till catch i if-satserna.
         initiateGame();
@@ -376,7 +376,10 @@ oGameData.checkForGameOver = function () {
         }
     }
     clearInterval(oGameData.timerId);
+    //oGameData.timerId = null;
     timeCount(5);
+    //Adam testar att kommentera bort denna i syfte. Hjälpte inte. 
+
     // Tidigare IF-sats uteslutet scenariot där ingen vinnare finns och det fortfarande finns plats att spela på. 
     return 0;
 }
