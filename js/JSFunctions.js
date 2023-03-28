@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 //Testutskrifter
 /*
 console.log( oGameData );
@@ -43,47 +41,35 @@ window.addEventListener('load', function() {
 });
 
 function timer() {
-    let parent = document.querySelector("#div-in-form");
-    //Hämtar elementet från HTML-filen med ID namnet div-in-form för att sedan tilldela till variablen parent.
-    let div = document.createElement("div");
-    //Skapar ett ny div i HTML-filen som tilldelas variabeln div.
-    let placement = document.querySelector("#div-with-a");
-    //Hämtar elementet från HTML-filen med ID namnet div-with-a för att sedan tilldela till variablen parent.
-    let check = document.createElement("input");
-    let label = document.createElement("label");
-    let text = document.createTextNode("Vill du begränsa tiden till 5 sek per drag?");
-    div.setAttribute("id","div-with-check");
-    check.type = "checkbox";
-    check.setAttribute("id", "checkBox");
-    label.setAttribute("for", "checkBox");
-    label.appendChild(text);
-    div.classList.add("fit-content" ,"margin-top");
-    label.classList.add("fit-content");
-    check.classList.add("fit-content");
-    parent.insertBefore(div, placement);
-    div.appendChild(check);
-    div.appendChild(label);
-    
-    
-    /*check.addEventListener("change", function() {
-        if (this.checked) {
-            oGameData.timerEnabled = true;
-        }
-        else {
-            oGameData.timerEnabled = false;
-        }
-    });*/
+    let parent = document.querySelector("#div-in-form");          //Hämtar elementet från HTML-filen med ID namnet div-in-form för att sedan tilldela till variablen parent.
+    let div = document.createElement("div");                      //Skapar ett ny div i HTML-filen som tilldelas variabeln div.
+    let placement = document.querySelector("#div-with-a");        //Hämtar elementet från HTML-filen med ID namnet div-with-a för att sedan tilldela till variablen parent.   
+    let check = document.createElement("input");                  //Gör ett nytt html-element med typen input som har namnet input på variabeln.
+    let label = document.createElement("label");                  //Gör ett nytt html-element med typen label och ger namnet label i variabeln.
+    let text = document.createTextNode("Vill du begränsa tiden till 5 sek per drag?");   //Skapar en textnod med variabeln "text".
+    div.setAttribute("id","div-with-check");                      //Sätter attributet id på den nya diven vid namn div-with-check.
+    check.type = "checkbox";                                      //Sätter attributet ett type attribut på den nya inputen till checkbox.
+    check.setAttribute("id", "checkBox");                         //Sätter attributet id på den nya inputen till checkbox.
+    label.setAttribute("for", "checkBox");                        //Sätter attributet for på den nya label till checkbox.
+    label.appendChild(text);                                      //Lägger textnoden till label-elementet .
+    div.classList.add("fit-content" ,"margin-top");               //Lägger till klasser till den nya diven.
+    label.classList.add("fit-content");                           //Lägger till klassen till den nya labeln.
+    check.classList.add("fit-content");                           //Lägger till klassen till den nya inputen.
+    parent.insertBefore(div, placement);                          //Lägger till att den nya diven ligger i parent-elementen före placement-elementet.
+    div.appendChild(check);                                       //Lägger till den nya inputen i den nya diven.
+    div.appendChild(label);                                       //Lägger till den nya labeln i den nya diven.
 }
 
 function timeCount(timeInSeconds) {
-    //Funktion för timer samt justering av aktuell spelare och jumbotron
+    //Funktion för timer samt justering av aktuell spelare och jumbotron.
         timeInSeconds--;
-        if(timeInSeconds===0){
+        if(timeInSeconds===0) {
                 timeCount(5);
                 if(oGameData.currentPlayer==oGameData.playerOne){
                     oGameData.currentPlayer=oGameData.playerTwo;
                     document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerTwo + "("+oGameData.playerTwo +")" ;  
-                }else{
+                }
+                else {
                     oGameData.currentPlayer=oGameData.playerOne;
                     document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerOne + "("+oGameData.playerOne +")";
                 }
@@ -94,14 +80,13 @@ function timeCount(timeInSeconds) {
             }, 1000);
         }
 
-        if(oGameData.timerEnabled == false){
+        if(oGameData.timerEnabled == false) {
             clearInterval(oGameData.timerId);
             oGameData.timerId = null;
         }
     }
 
 function executeMove(event) {
-
     //Tilldelar variabler
     let jumbotronH1 = document.querySelector('.jumbotron h1');
     let table = document.querySelector("table");
@@ -306,16 +291,16 @@ function initiateGame(){
         //Sätter allt text innehåll för td till null samt ändrar bakgrundsfärgen till vit.
         Td[i].textContent = ""; 
         Td[i].style.backgroundColor = 'white';
-
     }
+
     //Kollar ifall randomiserade värdet som genereras är mindre än 0,5.
-    if(Math.random(1) < 0.5){
+    if(Math.random(1) < 0.5) {
         //Tilldelar playerChar, playername och currentPlayer värden tillhörande playerOne.
         playerChar = oGameData.playerOne;
         playerName = oGameData.nickNamePlayerOne;
         oGameData.currentPlayer = oGameData.playerOne;
     }
-    else{
+    else {
         //Vid händelse att värdet som genereras inte är mindre än 0,5 så tilldelas samma som ovan playerTwo istället.
         playerChar = oGameData. playerTwo;
         playerName = oGameData.nickNamePlayerTwo;
@@ -358,13 +343,15 @@ oGameData.checkForGameOver = function () {
         
         //Kontrollerar så att arrayplatser i 2D array har strängvärdet "X" på platserna 0,1,2 för värdet [i].
         //Kollar både för "X" och "O"
-        if (oGameData.gameField[kontrolleraVinster[i][0]] === 'X' && oGameData.gameField[kontrolleraVinster[i][1]] === 'X' &&
-         oGameData.gameField[kontrolleraVinster[i][2]] === 'X') {
+        if (oGameData.gameField[kontrolleraVinster[i][0]] === 'X' && 
+            oGameData.gameField[kontrolleraVinster[i][1]] === 'X' &&
+            oGameData.gameField[kontrolleraVinster[i][2]] === 'X') {
             return 1;
         }
         //Gör samma sak som if-satsen ovan med skillnaden att man försöker matcha med stringvärdet "O" istället.
-        else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && oGameData.gameField[kontrolleraVinster[i][1]] === 'O' &&
-         oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
+        else if (oGameData.gameField[kontrolleraVinster[i][0]] === 'O' && 
+                 oGameData.gameField[kontrolleraVinster[i][1]] === 'O' &&
+                 oGameData.gameField[kontrolleraVinster[i][2]] === 'O') {
             return 2;
         }
         //Om inte "X" eller "O" har vunnit och i har loopat igenom hela arrayen och inte innehåller en tom plats kommer den returnera en 3:a för oavgjort.
@@ -372,9 +359,9 @@ oGameData.checkForGameOver = function () {
             return 3;
         }
     }
+
     //Om spelet inte avslutas efter ett tryck nollställs timern igen och sätts till 5 sekunder.
     clearInterval(oGameData.timerId);
     timeCount(5);
-
     return 0;
 }
