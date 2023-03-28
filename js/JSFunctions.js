@@ -65,14 +65,14 @@ function timer() {
     div.appendChild(label);
     
     
-    check.addEventListener("change", function() {
+    /*check.addEventListener("change", function() {
         if (this.checked) {
             oGameData.timerEnabled = true;
         }
         else {
             oGameData.timerEnabled = false;
         }
-    });
+    });*/
 }
 
 function timeCount(timeInSeconds) {
@@ -248,17 +248,16 @@ function validateForm() {
             throw ' spelarfärg får ej vara vit.'
         }
 
+        //Varje gång formuläret kollas kollar man om checkboxen är ikryssad
         if(document.getElementById('checkBox').checked) {
             oGameData.timerEnabled=true;
         }
 
+        //Om boxen är kryssad kör timern igång
         if(oGameData.timerEnabled) {
-            //console.log("timer ska startas");
             timeCount(5);
         }
-        else {
-            //console.log("Ingen timer!!!!");
-        }
+        
         //Kallar på metod ifall inget har kastats till catch i if-satserna.
         initiateGame();
     }
@@ -373,6 +372,7 @@ oGameData.checkForGameOver = function () {
             return 3;
         }
     }
+    //Om spelet inte avslutas efter ett tryck nollställs timern igen och sätts till 5 sekunder.
     clearInterval(oGameData.timerId);
     timeCount(5);
 
