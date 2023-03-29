@@ -63,23 +63,29 @@ function timer() {
 function timeCount(timeInSeconds) {
     //Funktion för timer samt justering av aktuell spelare och jumbotron.
         timeInSeconds--;
+
+        //Om tiden gått till 0 byts turen till andra spelaren
         if(timeInSeconds===0) {
                 timeCount(5);
-                if(oGameData.currentPlayer==oGameData.playerOne){
+                if(oGameData.currentPlayer==oGameData.playerOne) { //Kontrollerar ifall spelare är spelare 1 och då ändrar currentplayer och jumbotron till spelare 2.
                     oGameData.currentPlayer=oGameData.playerTwo;
                     document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerTwo + "("+oGameData.playerTwo +")" ;  
                 }
-                else {
+                else { //Om inte det är första spelarens tur, vet vi att det är spelare 2 och ändrar istället currentplayer och jumobtron till spelare 1.
                     oGameData.currentPlayer=oGameData.playerOne;
                     document.querySelector('.jumbotron h1').textContent = "Aktuell spelare är "+ oGameData.nickNamePlayerOne + "("+oGameData.playerOne +")";
                 }
         }
+        
+        //Är tiden inte 0 minskas tiden med 1 sekund
         else {
             oGameData.timerId = setTimeout(function() {
                 timeCount(timeInSeconds);
             }, 1000);
         }
-
+        
+        
+        //Om timerEnabled är false töms interval och stänger timern
         if(oGameData.timerEnabled == false) {
             clearInterval(oGameData.timerId);
             oGameData.timerId = null;
@@ -360,7 +366,7 @@ oGameData.checkForGameOver = function () {
         }
     }
 
-    //Om spelet inte avslutas efter ett tryck nollställs timern igen och sätts till 5 sekunder.
+    //Om spelet inte avslutas efter ett tryck nollställs timern och sätts till 5 sekunder.
     clearInterval(oGameData.timerId);
     timeCount(5);
     return 0;
